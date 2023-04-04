@@ -1,7 +1,10 @@
 package com.example.qr_scanner;
 import android.app.Activity;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,15 @@ public class MainActivity extends Activity {
             integrator.setBeepEnabled(true);
             integrator.setBarcodeImageEnabled(true);
             integrator.initiateScan();
+        });
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ClipboardManager cl = (ClipboardManager) getApplicationContext()
+                        .getSystemService(Context.CLIPBOARD_SERVICE);
+                cl.setText(textView.getText().toString().trim());
+                return true;
+            }
         });
     }
 
